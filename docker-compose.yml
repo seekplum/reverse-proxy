@@ -1,0 +1,28 @@
+version: "2.4"
+
+x-limits: &resources
+  # 3.4版本 使用时需要在 docker-compose 后加上 --compatibility 参数
+  # deploy:
+  #   resources:
+  #     limits:
+  #       cpus: '1'
+  #       memory: 1G
+  #     reservations:
+  #       cpus: '0.50'
+  #       memory: 512M
+  mem_reservation: "512M"
+  mem_limit: "1G"
+  cpus: 0.5
+  cpu_count: 1
+  restart: on-failure
+services:
+  openresty:
+    <<: *resources
+    image: openresty/openresty
+    container_name: reverse-proxy
+    ports:
+      - 8083:80
+    volumes:
+      - ./certs/cacert.pem:/etc/certs/cacert.pem
+      - ./conf:/usr/local/openresty/nginx/conf
+      - ./lua:/usr/local/openresty/nginx/lua
