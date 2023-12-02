@@ -26,3 +26,4 @@ services:
       - ./certs/cacert.pem:/etc/certs/cacert.pem
       - ./conf:/usr/local/openresty/nginx/conf
       - ./lua:/usr/local/openresty/nginx/lua
+      - /etc/resolv.conf:/etc/resolv.conf
