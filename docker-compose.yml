@@ -22,8 +22,10 @@ services:
     container_name: reverse-proxy
     ports:
       - 8083:80
+      - 8084:443
     volumes:
       - ./certs/cacert.pem:/etc/certs/cacert.pem
       - ./conf:/usr/local/openresty/nginx/conf
       - ./lua:/usr/local/openresty/nginx/lua
+      - ./ssl:/etc/nginx/ssl
       - /etc/resolv.conf:/etc/resolv.conf

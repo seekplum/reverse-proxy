@@ -17,9 +17,9 @@ curl https://curl.se/ca/cacert.pem -o certs/cacert.pem
 ## 部署
 
 ```bash
-docker-compose down --remove-orphans -v
+bash ./deploy.sh down
 
-docker-compose up -d --force-recreate
+bash ./deploy.sh up
 ```
 
 ## 访问示例
