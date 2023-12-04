@@ -29,3 +29,11 @@ services:
       - ./lua:/usr/local/openresty/nginx/lua
       - ./ssl:/etc/nginx/ssl
       - /etc/resolv.conf:/etc/resolv.conf
+  mitmproxy:
+    <<: *resources
+    image: mitmproxy/mitmproxy:9.0.1
+    container_name: mitmproxy-proxy
+    network_mode: host
+    command: mitmdump -p 8085 --set confdir=/data/mitmproxy
+    volumes:
+      - ./data/mitmproxy:/data/mitmproxy
