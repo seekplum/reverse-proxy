@@ -37,3 +37,17 @@ services:
     command: mitmdump -p 8085 --set confdir=/data/mitmproxy
     volumes:
       - ./data/mitmproxy:/data/mitmproxy
+  caddy:
+    image: caddy:2.7.6
+    container_name: caddy-proxy
+    ports:
+     - 8086:80
+     - 443:443
+    restart: always
+    volumes:
+      - ${ROOT_DIR}/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${ROOT_DIR}/data/caddy/data:/data
+      - ${ROOT_DIR}/data/caddy/config:/config
+      - ${ROOT_DIR}/ssl:/ssl
+    environment:
+      TZ: Asia/Shanghai

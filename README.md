@@ -14,6 +14,12 @@
 curl https://curl.se/ca/cacert.pem -o certs/cacert.pem
 ```
 
+## 生成证书
+
+```bash
+echo "localhost" | bash ./gencret.sh
+```
+
 ## 部署
 
 ```bash
@@ -26,4 +32,11 @@ bash ./deploy.sh up
 
 ```bash
 curl http://www.baidu.com --proxy http://dev:8083
+
+curl -fsSLk http://localhost:8086 -H "Host: www.test.com"
+curl -fsSLk http://www.test.com/api/get --proxy http://127.0.0.1:8086
+
+curl -fsSLk https://localhost/api/get
+curl -fsSLk https://localhost/xxxx -H "Host: www.test.com"
+curl -fsSLk https://localhost/api/get -H "Host: www.test.com"
 ```

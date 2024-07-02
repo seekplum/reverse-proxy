@@ -1,0 +1,45 @@
+(log_config) {
+	output stdout
+
+	format json {
+		time_local
+		time_format wall_milli
+	}
+}
+
+{
+	log {
+		import log_config
+	}
+	debug
+	ocsp_stapling off
+}
+
+:80 {
+	respond "[80] Hello world!"
+}
+
+:443 {
+	respond "[443] Hello world!"
+}
+
+www.test.com:443 {
+	# tls self_signed local
+	tls /ssl/www.test.com.cer /ssl/www.test.com.key
+
+	route /api/* {
+		uri strip_prefix /api
+		reverse_proxy httpbin.org
+	}
+
+	respond "[www 443] Hello world!"
+}
+
+www.test.com:80 {
+	route /api/* {
+		uri strip_prefix /api
+		reverse_proxy httpbin.org
+	}
+
+	respond "[www 80] Hello world!"
+}
